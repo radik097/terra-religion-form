@@ -497,6 +497,7 @@
           <button type="button" class="secondary" id="goCanon">Канон</button>
           <button type="button" class="secondary" id="goOrigin">Происхождение</button>
         </div>
+        <button type="button" class="secondary tool-action" id="toggleReligionForm">Открыть форму</button>
       </div>
 
       <div class="nav-title">Навигация</div>
@@ -770,7 +771,7 @@
         </div>
       </section>
 
-      <section id="religion-form" class="search-block">
+      <section id="religion-form" class="search-block" hidden>
         <div class="section-head">
           <h2>10. Форма черновика новой религии</h2>
           <span class="tag">LOCAL DRAFT</span>
@@ -925,6 +926,14 @@ Data/index.json</div>
     $('#goStart').addEventListener('click', () => $('#start').scrollIntoView({ behavior: 'smooth', block: 'start' }));
     $('#goCanon').addEventListener('click', () => $('#canon').scrollIntoView({ behavior: 'smooth', block: 'start' }));
     $('#goOrigin').addEventListener('click', () => $('#origin').scrollIntoView({ behavior: 'smooth', block: 'start' }));
+
+    $('#toggleReligionForm').addEventListener('click', () => {
+      const section = $('#religion-form');
+      const isHidden = section.hidden;
+      section.hidden = !isHidden;
+      $('#toggleReligionForm').textContent = isHidden ? 'Скрыть форму' : 'Открыть форму';
+      if (isHidden) section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
 
     $('#searchInput').addEventListener('input', (event) => {
       const q = event.target.value.trim().toLowerCase();
