@@ -1,0 +1,949 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Нулевая Точка: Хроники Завязи</title>
+  <meta name="description" content="Каноническая HTML-страница лор-проекта Нулевая Точка: Хроники Завязи." />
+  <style>
+    :root {
+      --bg: #07070c;
+      --bg2: #0e0d16;
+      --panel: rgba(20, 18, 32, 0.86);
+      --panel2: rgba(35, 31, 51, 0.72);
+      --border: rgba(169, 135, 255, 0.22);
+      --border-strong: rgba(187, 153, 255, 0.48);
+      --text: #e9e4ff;
+      --muted: #a9a1c5;
+      --dim: #746d8f;
+      --violet: #b46cff;
+      --violet2: #7f42ff;
+      --green: #70ffb0;
+      --red: #ff6767;
+      --gold: #ffd166;
+      --blue: #56c7ff;
+      --cyan: #8df3ff;
+      --steel: #a9b5c9;
+      --shadow: 0 0 44px rgba(130, 66, 255, .18);
+      --radius: 18px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+      --sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at 18% 8%, rgba(141, 65, 255, .18), transparent 34rem),
+        radial-gradient(circle at 82% 18%, rgba(0, 207, 255, .09), transparent 32rem),
+        radial-gradient(circle at 50% 92%, rgba(126, 255, 190, .08), transparent 28rem),
+        linear-gradient(135deg, var(--bg), #090812 48%, #050508);
+      color: var(--text);
+      font-family: var(--sans);
+      line-height: 1.62;
+      min-height: 100vh;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+      background-size: 38px 38px;
+      mask-image: radial-gradient(circle at center, rgba(0,0,0,.68), transparent 74%);
+      opacity: .34;
+      z-index: -1;
+    }
+
+    a { color: var(--cyan); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .shell {
+      display: grid;
+      grid-template-columns: 290px minmax(0, 1fr);
+      gap: 22px;
+      max-width: 1520px;
+      margin: 0 auto;
+      padding: 22px;
+    }
+
+    .sidebar {
+      position: sticky;
+      top: 22px;
+      align-self: start;
+      height: calc(100vh - 44px);
+      overflow: auto;
+      padding: 18px;
+      background: rgba(12, 11, 20, .78);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(14px);
+    }
+
+    .brand {
+      display: grid;
+      gap: 10px;
+      padding: 14px;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: linear-gradient(180deg, rgba(91, 48, 170, .24), rgba(18, 15, 31, .52));
+    }
+
+    .brand-mark {
+      width: 46px;
+      height: 46px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      color: white;
+      font-family: var(--mono);
+      font-weight: 900;
+      letter-spacing: -0.08em;
+      background:
+        radial-gradient(circle at 50% 28%, rgba(255,255,255,.38), transparent 28%),
+        linear-gradient(135deg, var(--violet), #2d174e 64%, #080710);
+      border: 1px solid rgba(255,255,255,.22);
+      box-shadow: 0 0 28px rgba(180,108,255,.38);
+    }
+
+    .brand h1 {
+      margin: 0;
+      font-size: 1.14rem;
+      line-height: 1.18;
+      letter-spacing: .01em;
+    }
+    .brand small { color: var(--muted); font-family: var(--mono); }
+
+    .nav-title {
+      margin: 18px 0 8px;
+      color: var(--dim);
+      font: 700 .72rem/1 var(--mono);
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .nav {
+      display: grid;
+      gap: 5px;
+    }
+    .nav a {
+      color: var(--muted);
+      padding: 9px 10px;
+      border-radius: 11px;
+      border: 1px solid transparent;
+      font-size: .92rem;
+    }
+    .nav a:hover, .nav a.active {
+      color: var(--text);
+      background: rgba(180, 108, 255, .12);
+      border-color: rgba(180, 108, 255, .24);
+      text-decoration: none;
+    }
+
+    .quick-tools {
+      margin-top: 16px;
+      display: grid;
+      gap: 10px;
+    }
+    .search {
+      width: 100%;
+      padding: 11px 12px;
+      border-radius: 12px;
+      color: var(--text);
+      background: rgba(255,255,255,.045);
+      border: 1px solid var(--border);
+      outline: none;
+    }
+    .search:focus { border-color: var(--border-strong); box-shadow: 0 0 0 3px rgba(180,108,255,.12); }
+
+    .btn-row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+    button, .btn {
+      appearance: none;
+      border: 1px solid var(--border);
+      background: rgba(180,108,255,.12);
+      color: var(--text);
+      padding: 10px 12px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-weight: 700;
+      font-family: var(--sans);
+    }
+    button:hover, .btn:hover { border-color: var(--border-strong); background: rgba(180,108,255,.18); text-decoration: none; }
+    button.secondary { background: rgba(255,255,255,.055); color: var(--muted); }
+
+    main { min-width: 0; }
+
+    .hero {
+      min-height: 78vh;
+      display: grid;
+      align-content: center;
+      gap: 24px;
+      padding: 56px;
+      border: 1px solid var(--border);
+      border-radius: calc(var(--radius) + 8px);
+      background:
+        linear-gradient(120deg, rgba(20, 18, 32, .92), rgba(16, 13, 26, .72)),
+        radial-gradient(circle at 85% 20%, rgba(112,255,176,.12), transparent 18rem),
+        radial-gradient(circle at 35% 85%, rgba(180,108,255,.20), transparent 22rem);
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::after {
+      content: "ZERO POINT";
+      position: absolute;
+      right: -30px;
+      bottom: -40px;
+      font: 900 clamp(3.2rem, 10vw, 10rem)/.9 var(--mono);
+      letter-spacing: -.08em;
+      color: rgba(255,255,255,.035);
+      pointer-events: none;
+    }
+    .eyebrow {
+      color: var(--green);
+      font: 800 .78rem/1 var(--mono);
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+    .hero h2 {
+      margin: 0;
+      font-size: clamp(2.35rem, 6vw, 6.3rem);
+      line-height: .95;
+      letter-spacing: -.07em;
+      max-width: 950px;
+    }
+    .hero p {
+      margin: 0;
+      max-width: 820px;
+      color: var(--muted);
+      font-size: clamp(1rem, 1.6vw, 1.22rem);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      max-width: 900px;
+    }
+    .stat {
+      padding: 14px;
+      border: 1px solid var(--border);
+      border-radius: 15px;
+      background: rgba(255,255,255,.045);
+    }
+    .stat b { display: block; font: 900 1.15rem/1.2 var(--mono); color: var(--text); }
+    .stat span { color: var(--muted); font-size: .84rem; }
+
+    section {
+      margin-top: 22px;
+      padding: 26px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: 0 18px 70px rgba(0,0,0,.22);
+      backdrop-filter: blur(14px);
+    }
+
+    .section-head {
+      display: flex;
+      align-items: start;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 18px;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      padding-bottom: 14px;
+    }
+    .section-head h2 {
+      margin: 0;
+      font-size: clamp(1.3rem, 3vw, 2.25rem);
+      letter-spacing: -.04em;
+    }
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 6px 10px;
+      color: var(--muted);
+      font: 700 .73rem/1 var(--mono);
+      white-space: nowrap;
+      background: rgba(255,255,255,.045);
+    }
+
+    .grid { display: grid; gap: 16px; }
+    .grid.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .grid.three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .grid.four { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+    .card {
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: var(--panel2);
+      padding: 17px;
+      min-width: 0;
+    }
+    .card h3 { margin: 0 0 8px; line-height: 1.2; letter-spacing: -.02em; }
+    .card p { margin: 0 0 10px; color: var(--muted); }
+    .card p:last-child { margin-bottom: 0; }
+
+    .faction {
+      position: relative;
+      overflow: hidden;
+    }
+    .faction::before {
+      content: "";
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 4px;
+      background: var(--accent, var(--violet));
+      opacity: .86;
+    }
+    .faction .symbol {
+      width: 52px;
+      height: 52px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 12px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.1);
+      font-size: 1.45rem;
+    }
+    .faction ul, .compact-list {
+      margin: 12px 0 0;
+      padding-left: 18px;
+      color: var(--muted);
+    }
+
+    .timeline {
+      position: relative;
+      display: grid;
+      gap: 14px;
+      padding-left: 20px;
+    }
+    .timeline::before {
+      content: "";
+      position: absolute;
+      left: 4px;
+      top: 4px;
+      bottom: 4px;
+      width: 2px;
+      background: linear-gradient(var(--violet), var(--green));
+      opacity: .64;
+    }
+    .event {
+      position: relative;
+      padding: 15px 16px;
+      border-radius: 15px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.04);
+    }
+    .event::before {
+      content: "";
+      position: absolute;
+      left: -23px;
+      top: 20px;
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 16px var(--green);
+    }
+    .event b { color: var(--text); }
+    .event p { margin: 5px 0 0; color: var(--muted); }
+
+    .map-board {
+      padding: 22px;
+      border: 1px solid var(--border-strong);
+      border-radius: 22px;
+      background:
+        linear-gradient(180deg, rgba(11, 10, 18, .74), rgba(22, 18, 35, .84)),
+        radial-gradient(circle at center, rgba(180,108,255,.12), transparent 50%);
+      display: grid;
+      gap: 15px;
+    }
+    .map-row {
+      display: grid;
+      gap: 15px;
+      min-height: 100px;
+    }
+    .map-row.one { grid-template-columns: minmax(0, 1fr); }
+    .map-row.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .map-node {
+      display: grid;
+      align-content: center;
+      gap: 5px;
+      text-align: center;
+      padding: 16px;
+      border-radius: 18px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.048);
+    }
+    .map-node strong { display: block; font-size: 1.05rem; }
+    .map-node span { color: var(--muted); font-size: .9rem; }
+    .map-node.violet { border-color: rgba(180,108,255,.42); }
+    .map-node.steel { border-color: rgba(169,181,201,.42); }
+    .map-node.seed { border-color: rgba(112,255,176,.42); }
+    .map-node.throne { border-color: rgba(86,199,255,.42); }
+    .map-node.gray { border-style: dashed; color: var(--muted); }
+
+    details {
+      border: 1px solid var(--border);
+      border-radius: 15px;
+      background: rgba(255,255,255,.04);
+      overflow: hidden;
+    }
+    summary {
+      cursor: pointer;
+      padding: 14px 16px;
+      font-weight: 800;
+    }
+    details > div { padding: 0 16px 16px; color: var(--muted); }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      overflow: hidden;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.035);
+    }
+    th, td {
+      padding: 12px 13px;
+      border-bottom: 1px solid rgba(255,255,255,.075);
+      text-align: left;
+      vertical-align: top;
+    }
+    th { color: var(--text); font: 800 .78rem/1.2 var(--mono); text-transform: uppercase; letter-spacing: .07em; }
+    td { color: var(--muted); }
+    tr:last-child td { border-bottom: 0; }
+
+    .terminal {
+      background: rgba(4, 5, 9, .74);
+      border: 1px solid rgba(112,255,176,.22);
+      border-radius: 16px;
+      padding: 16px;
+      color: #d9ffe8;
+      font-family: var(--mono);
+      overflow: auto;
+      white-space: pre-wrap;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+    label { display: grid; gap: 6px; color: var(--muted); font-size: .92rem; }
+    input, textarea, select {
+      width: 100%;
+      padding: 11px 12px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.055);
+      color: var(--text);
+      outline: none;
+      font: inherit;
+    }
+    textarea { min-height: 92px; resize: vertical; }
+    input:focus, textarea:focus, select:focus { border-color: var(--border-strong); box-shadow: 0 0 0 3px rgba(180,108,255,.12); }
+    .full { grid-column: 1 / -1; }
+
+    .footer {
+      margin: 22px 0 0;
+      padding: 20px;
+      color: var(--dim);
+      text-align: center;
+      font-family: var(--mono);
+      font-size: .84rem;
+    }
+
+    .hidden-by-search { display: none !important; }
+
+    @media (max-width: 1050px) {
+      .shell { grid-template-columns: 1fr; padding: 14px; }
+      .sidebar { position: relative; top: auto; height: auto; }
+      .hero { min-height: auto; padding: 34px 24px; }
+      .hero-grid, .grid.four { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .grid.two, .grid.three, .map-row.two, .form-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 560px) {
+      .hero-grid, .grid.four { grid-template-columns: 1fr; }
+      .section-head { display: grid; }
+      section { padding: 18px; }
+      .hero h2 { font-size: 2.45rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark">НТ</div>
+        <h1>Нулевая Точка:<br />Хроники Завязи</h1>
+        <small>CANON v0.4-draft / HTML index</small>
+      </div>
+
+      <div class="quick-tools">
+        <input id="searchInput" class="search" type="search" placeholder="Поиск по странице..." />
+        <div class="btn-row">
+          <button type="button" class="secondary" id="goStart">Старт</button>
+          <button type="button" class="secondary" id="goCanon">Канон</button>
+          <button type="button" class="secondary" id="goOrigin">Происхождение</button>
+        </div>
+      </div>
+
+      <div class="nav-title">Навигация</div>
+      <nav class="nav" id="nav">
+        <a href="#start">Старт</a>
+        <a href="#canon">Канон</a>
+        <a href="#origin">Происхождение</a>
+        <a href="#factions">Державы</a>
+        <a href="#map">Карта</a>
+        <a href="#timeline">Хронология</a>
+        <a href="#rules">Правила лора</a>
+        <a href="#symbols">Символика</a>
+        <a href="#deprecated">Ретконы</a>
+        <a href="#templates">Шаблоны</a>
+        <a href="#religion-form">Форма религии</a>
+        <a href="#files">Файлы пакета</a>
+      </nav>
+    </aside>
+
+    <main>
+      <header class="hero search-block" id="start">
+        <div class="eyebrow">ACTIVE CANON / ZERO POINT ARCHIVE</div>
+        <h2>Нулевая Точка: Хроники Завязи</h2>
+        <p>Мрачный хроникальный проект о старом Камелоте, единой Завязи, метеоритной катастрофе, Великом Расселении и державах, которые выросли после невозможности вернуться к прежнему единству.</p>
+        <div class="hero-grid">
+          <div class="stat"><b>v0.4</b><span>актуальная сборка канона</span></div>
+          <div class="stat"><b>4</b><span>активные державы</span></div>
+          <div class="stat"><b>1</b><span>Событие Нулевой Точки</span></div>
+          <div class="stat"><b>RP</b><span>история через наблюдателей</span></div>
+        </div>
+      </header>
+
+      <section id="canon" class="search-block">
+        <div class="section-head">
+          <h2>01. Основной канон</h2>
+          <span class="tag">CANON.md</span>
+        </div>
+        <div class="grid two">
+          <div class="card">
+            <h3>Активное название</h3>
+            <p><b>Нулевая Точка: Хроники Завязи</b> — рабочее каноническое название для Discord, GitHub Page, лор-пакетов, форм религий, документов, архива и будущих игровых прототипов.</p>
+          </div>
+          <div class="card">
+            <h3>Что не использовать в названии</h3>
+            <p>Не использовать слова и образы, связанные с прежним названием, землёй, планетой, срезом, осколками, расколотостью, разломом и руинами. Эти образы могут быть архивными, но не должны быть главным названием проекта.</p>
+          </div>
+          <div class="card">
+            <h3>Камелот</h3>
+            <p>Камелот — древний павший сервер. Он существовал настолько давно, что перестал быть точной историей и стал легендой. Разные фракции могут трактовать его как утраченный порядок, ошибку, первый неудачный союз или предупреждение.</p>
+          </div>
+          <div class="card">
+            <h3>Главный принцип</h3>
+            <p>Участник не управляет всей историей напрямую. Он пишет как наблюдатель, свидетель, архивист, посол, солдат, чиновник или представитель ограниченной позиции.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="origin" class="search-block">
+        <div class="section-head">
+          <h2>02. Происхождение держав</h2>
+          <span class="tag">Event Zero Point</span>
+        </div>
+        <div class="grid two">
+          <div class="card">
+            <h3>Единая Завязь</h3>
+            <p>До появления отдельных держав существовала единая Фиолетовая Завязь. В древнюю эпоху она была не одной из держав, а общей исходной структурой, внутри которой жили будущие народы, верования, ордена, архивисты, технари, хранители семян, последователи закона и сторонники стального порядка.</p>
+            <p>Тогда ещё не было окончательно оформленных границ. Будущие государства и религии жили на общей территории, под одной большой системой Завязи.</p>
+          </div>
+          <div class="card">
+            <h3>Событие Нулевой Точки</h3>
+            <p>Затем с неба пришла угроза. Из глубины космоса к территории Завязи двигался метеорит. Его приближение стало первым настоящим концом старого порядка.</p>
+            <p>Совет Завязи понял, что единая система не переживёт удар, если останется собранной в одном центре. Поэтому население, архивы, семена, технологии, священные функции и военные запасы начали распределять по разным участкам.</p>
+          </div>
+          <div class="card">
+            <h3>Великое Расселение</h3>
+            <p>Каждая группа получила свою задачу, свой запас, свой участок, свою веру и своё объяснение того, почему именно она должна выжить. После падения метеорита группы уже не вернулись в прежнее единство.</p>
+          </div>
+          <div class="card">
+            <h3>Рождение держав</h3>
+            <p>Из расселённых групп выросли четыре активные державы: Сталинская Империя, Невидимый Престол, Хранители Арбузного Семени и Государство Фиолетовой Завязи.</p>
+          </div>
+        </div>
+        <div class="terminal" style="margin-top:16px">Камелот стал легендой.
+Завязь была единой.
+С неба пришёл метеорит.
+Началось Великое Расселение.
+После удара родились державы.</div>
+      </section>
+
+      <section id="factions" class="search-block">
+        <div class="section-head">
+          <h2>03. Активные державы</h2>
+          <span class="tag">FACTIONS</span>
+        </div>
+        <div class="grid four">
+          <article class="card faction" style="--accent: var(--steel)">
+            <div class="symbol">⚙</div>
+            <h3>Сталинская Империя</h3>
+            <p>Государство абсолютной централизации, заводского культа, мобилизации, архивного контроля и страха перед государственным порядком.</p>
+            <ul>
+              <li>Кремль Единого Плана</li>
+              <li>Единый План</li>
+              <li>Стальной Порядок</li>
+              <li>Радиоголос</li>
+              <li>Серые Заводы</li>
+            </ul>
+          </article>
+          <article class="card faction" style="--accent: var(--violet)">
+            <div class="symbol">𐌞</div>
+            <h3>Государство Фиолетовой Завязи</h3>
+            <p>Биотехнологическая теократия баклажановых симбионтов, маточников, селекции, вычислительных садов и Всеобщего Разума Завязи.</p>
+            <ul>
+              <li>Маточник Бакла</li>
+              <li>Прародитель</li>
+              <li>Баклажановые симбионты</li>
+              <li>Вычислительные сады</li>
+              <li>Всеобщий Разум Завязи</li>
+            </ul>
+          </article>
+          <article class="card faction" style="--accent: var(--blue)">
+            <div class="symbol">▱</div>
+            <h3>Невидимый Престол</h3>
+            <p>Держава закона без лица, пустого трона, закрытых арок, дисциплины, тайного суда и власти без изображения.</p>
+            <ul>
+              <li>Пустой трон</li>
+              <li>Закрытая арка</li>
+              <li>Невидимый суд</li>
+              <li>Тишина</li>
+              <li>Пустой Двор</li>
+            </ul>
+          </article>
+          <article class="card faction" style="--accent: var(--green)">
+            <div class="symbol">◉</div>
+            <h3>Хранители Арбузного Семени</h3>
+            <p>Держава воды, семян, бахч, плодовой памяти, священных запасов и права на продолжение будущего.</p>
+            <ul>
+              <li>Бахча-Собор</li>
+              <li>Верхние бахчи</li>
+              <li>Семенные хранилища</li>
+              <li>Плодовая память</li>
+              <li>Водный порядок</li>
+            </ul>
+          </article>
+        </div>
+
+        <details style="margin-top:16px">
+          <summary>Закрытый заказ Фиолетовой Завязи для Императора Сталина</summary>
+          <div>
+            <p>Фиолетовая Завязь приняла закрытый государственно-технологический заказ на разработку персонального ИИ-ассистента для Императора Сталина. Ассистент предназначен для административных, архивных и организационных задач. Он не является богом, не является самостоятельной военной суперсистемой и не заменяет власть Императора.</p>
+          </div>
+        </details>
+      </section>
+
+      <section id="map" class="search-block">
+        <div class="section-head">
+          <h2>04. Карта-схема</h2>
+          <span class="tag">WORLD_MAP</span>
+        </div>
+        <div class="map-board">
+          <div class="map-row one">
+            <div class="map-node seed"><strong>Хранители Арбузного Семени</strong><span>Бахча-Собор · вода · семена · верхние бахчи</span></div>
+          </div>
+          <div class="map-row two">
+            <div class="map-node steel"><strong>Сталинская Империя</strong><span>Кремль Единого Плана · заводы · архивы · сталь</span></div>
+            <div class="map-node violet"><strong>Государство Фиолетовой Завязи</strong><span>Маточник Бакла · симбионты · биотех · Всеобщий Разум</span></div>
+          </div>
+          <div class="map-row one">
+            <div class="map-node gray"><strong>Серая Пашня</strong><span>солончаки · старые фронты · саркофаги · пустые зоны</span></div>
+          </div>
+          <div class="map-row one">
+            <div class="map-node throne"><strong>Невидимый Престол</strong><span>нижние воды · Закон · Пустой Двор</span></div>
+          </div>
+        </div>
+        <p style="color:var(--muted); margin-top:14px">Важно: Невидимый Престол должен иметь собственную иконку. Не использовать стандартный полумесяц, общий исламский знак или чужую религиозную символику.</p>
+      </section>
+
+      <section id="timeline" class="search-block">
+        <div class="section-head">
+          <h2>05. Хронология</h2>
+          <span class="tag">TIMELINE</span>
+        </div>
+        <div class="timeline">
+          <div class="event"><b>0. До хроник</b><p>Камелот существует как древний сервер и будущая легенда.</p></div>
+          <div class="event"><b>1. Падение Камелота</b><p>Камелот исчезает из живой истории. О нём остаются легенды, трактовки и споры.</p></div>
+          <div class="event"><b>2. Единая Завязь</b><p>Фиолетовая Завязь существует как общая исходная структура для будущих народов, религий, орденов, архивистов и технарей.</p></div>
+          <div class="event"><b>3. Приближение метеорита</b><p>Из космоса приходит угроза. Совет Завязи понимает, что прежняя единая структура не переживёт удар.</p></div>
+          <div class="event"><b>4. Великое Расселение</b><p>Население, архивы, семена, технологии, священные функции и запасы распределяются по разным участкам.</p></div>
+          <div class="event"><b>5. Падение Метеорита</b><p>Катастрофа завершает старый порядок и делает невозможным возвращение к прежней единой системе.</p></div>
+          <div class="event"><b>6. Рождение держав</b><p>Из расселённых групп формируются Сталинская Империя, Фиолетовая Завязь, Невидимый Престол и Хранители Арбузного Семени.</p></div>
+          <div class="event"><b>7. Эпоха хроник</b><p>Начинаются записи наблюдателей, войны, дипломатия, архивы, слухи, ретконы и борьба за канон.</p></div>
+        </div>
+      </section>
+
+      <section id="rules" class="search-block">
+        <div class="section-head">
+          <h2>06. Правила создания лора</h2>
+          <span class="tag">LORE_RULES</span>
+        </div>
+        <div class="grid two">
+          <div class="card">
+            <h3>Игрок не бог</h3>
+            <p>Участник не владеет всей историей. Он пишет как гражданин, солдат, писарь, купец, беженец, монах, пленник, чиновник, посол, архивариус, разведчик, проповедник или свидетель.</p>
+          </div>
+          <div class="card">
+            <h3>Ограниченная информация</h3>
+            <p>Наблюдатель знает только то, что видел, слышал, прочитал или понял. Он может ошибаться, верить слухам и не знать полной картины.</p>
+          </div>
+          <div class="card">
+            <h3>Крупное действие</h3>
+            <p>Для войны, захвата, смены власти или аннексии нужна цепочка: причина, дипломатическое уведомление, подготовка, ответ другой стороны, действие, цена, последствия, запись в хронику.</p>
+          </div>
+          <div class="card">
+            <h3>Цена действия</h3>
+            <p>Сильное действие имеет цену: потери, голод, мятеж, болезнь, нехватка снабжения, дипломатическая изоляция, моральный ущерб, внутренний раскол или архивные потери.</p>
+          </div>
+        </div>
+        <div class="grid two" style="margin-top:16px">
+          <details open><summary>Статусы территории</summary><div>спорная зона; зона напряжения; поле боя; частичная оккупация; военная администрация; признанная аннексия; канон.</div></details>
+          <details open><summary>Статусы события</summary><div>DRAFT, PROPOSED, PENDING_RESPONSE, DISPUTED, ACCEPTED_LOCAL, ACCEPTED_CANON, REJECTED, REWORK_REQUIRED, RETCONNED, ARCHIVED.</div></details>
+        </div>
+      </section>
+
+      <section id="symbols" class="search-block">
+        <div class="section-head">
+          <h2>07. Символика и атрибутика</h2>
+          <span class="tag">SYMBOLS</span>
+        </div>
+        <div class="grid four">
+          <div class="card"><h3>Фиолетовая Завязь</h3><p>Фиолетовый маточник, биологическая спираль, симбионт, вычислительный сад, холодный свет лабораторной веры.</p></div>
+          <div class="card"><h3>Сталинская Империя</h3><p>Сталь, заводская геометрия, архивный штамп, красно-серый порядок, радиосигнал и символ Единого Плана.</p></div>
+          <div class="card"><h3>Невидимый Престол</h3><p>Пустой трон, закрытая арка, чёрный престол без правителя, тёмно-синий, бирюзовый, холодное серебро.</p></div>
+          <div class="card"><h3>Арбузное Семя</h3><p>Семя, вода, бахча, плодовая память, священное хранилище, знак сохранённого будущего.</p></div>
+        </div>
+        <details style="margin-top:16px">
+          <summary>Атрибутика Безликого Свидетеля</summary>
+          <div>
+            <p>Белая полумаска под чёрным капюшоном может использоваться как атрибутика орденов, судей, архивариусов и хранителей тайного закона. Белая маска означает отказ от личного имени. Чёрный капюшон означает вход в тайну. Пустой глаз означает взгляд веры, закона или памяти, а не взгляд отдельного человека. Брошь на горле означает клятву молчания. Цепь означает долг и подчинение догмату.</p>
+          </div>
+        </details>
+      </section>
+
+      <section id="deprecated" class="search-block">
+        <div class="section-head">
+          <h2>08. Ретконы и устаревшие термины</h2>
+          <span class="tag">RETCONS</span>
+        </div>
+        <table>
+          <thead><tr><th>Старое</th><th>Новое</th><th>Статус</th></tr></thead>
+          <tbody>
+            <tr><td>Назарейская Империя Света</td><td>Сталинская Империя</td><td>активная замена</td></tr>
+            <tr><td>Арбузная Синодия</td><td>Хранители Арбузного Семени</td><td>активная замена</td></tr>
+            <tr><td>Халифат Невидимого Престола</td><td>Невидимый Престол</td><td>слово “Халифат” не использовать</td></tr>
+            <tr><td>Кабачковая религия</td><td>Баклажановая религия</td><td>черновая форма удалена из активного канона</td></tr>
+            <tr><td>Кабачковые симбионты</td><td>Баклажановые симбионты</td><td>активная замена</td></tr>
+            <tr><td>Маточник Кабра</td><td>Маточник Бакла</td><td>активная замена</td></tr>
+            <tr><td>Государство Зелёной Завязи</td><td>Государство Фиолетовой Завязи</td><td>активная замена</td></tr>
+            <tr><td>Силиконовый Раскол</td><td>Событие Нулевой Точки / Великое Расселение / Падение Метеорита</td><td>старый термин ослаблен</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="templates" class="search-block">
+        <div class="section-head">
+          <h2>09. Шаблоны для участников</h2>
+          <span class="tag">TEMPLATES</span>
+        </div>
+        <div class="grid three">
+          <div class="card"><h3>Новая религия</h3><p>Название, автор, основа одним предложением, описание, символ, город, правители, табу, отношение к Событию Нулевой Точки, цели, цена и статус.</p></div>
+          <div class="card"><h3>Пост наблюдателя</h3><p>Кто пишет, где находится, что видел, что слышал, чему верит, в чём может ошибаться, какой уровень достоверности записи.</p></div>
+          <div class="card"><h3>Военное событие</h3><p>Причина, уведомление, подготовка, реакция другой стороны, действие, цена, последствия и статус территории.</p></div>
+        </div>
+      </section>
+
+      <section id="religion-form" class="search-block">
+        <div class="section-head">
+          <h2>10. Форма черновика новой религии</h2>
+          <span class="tag">LOCAL DRAFT</span>
+        </div>
+        <p style="color:var(--muted)">Форма работает локально в браузере. Данные можно сохранить в localStorage, экспортировать как JSON или Markdown. Файлы изображений не загружаются на сервер; указывай путь, ссылку или имя файла.</p>
+        <form id="religionForm" class="form-grid">
+          <label>Название религии<input name="name" placeholder="например: Орден Падающего Неба" /></label>
+          <label>Автор / псевдоним<input name="author" placeholder="имя автора" /></label>
+          <label class="full">Основа религии<input name="basis" placeholder="одним предложением" /></label>
+          <label class="full">Краткое описание<textarea name="description" placeholder="один короткий абзац"></textarea></label>
+          <label>Главный символ<input name="symbol" placeholder="описание знака для карты" /></label>
+          <label>Фото / файл значка<input name="mapIcon" placeholder="path/to/icon.png или ссылка" /></label>
+          <label>Фото / файл города<input name="cityImage" placeholder="path/to/city.png или ссылка" /></label>
+          <label>Действующие правители<input name="rulers" placeholder="имена и титулы" /></label>
+          <label>Главный запрет / табу<input name="taboo" placeholder="что запрещено" /></label>
+          <label>Отношение к Событию Нулевой Точки<input name="zeroPoint" placeholder="как религия трактует катастрофу" /></label>
+          <label>Отношение к другим державам<input name="relations" placeholder="союзы, страхи, вражда" /></label>
+          <label>Что религия хочет получить<input name="goal" placeholder="цель" /></label>
+          <label>Какую цену она платит<input name="price" placeholder="цена" /></label>
+          <label>Статус
+            <select name="status">
+              <option>DRAFT</option>
+              <option>PROPOSED</option>
+              <option>ACCEPTED_LOCAL</option>
+              <option>ACCEPTED_CANON</option>
+            </select>
+          </label>
+          <div class="full btn-row" style="grid-template-columns: repeat(4, minmax(0,1fr)); margin-top:4px">
+            <button type="button" id="saveDraft">Сохранить</button>
+            <button type="button" id="loadDraft" class="secondary">Загрузить</button>
+            <button type="button" id="exportJson">JSON</button>
+            <button type="button" id="exportMd">Markdown</button>
+          </div>
+        </form>
+      </section>
+
+      <section id="files" class="search-block">
+        <div class="section-head">
+          <h2>11. Состав лор-пакета</h2>
+          <span class="tag">FILES</span>
+        </div>
+        <div class="terminal">README.md
+START_HERE.md
+CANON.md
+CANON_BRIEF.md
+PROJECT_TITLE.md
+FACTIONS.md
+TIMELINE.md
+CHANGELOG.md
+DEPRECATED_TERMS.md
+RETCONS.md
+GLOSSARY.md
+Rules/LORE_RULES.md
+Map/WORLD_MAP.md
+Map/TERRITORIES.md
+Factions/Stalin_Empire.md
+Factions/Violet_Zavyaz.md
+Factions/Invisible_Throne.md
+Factions/Watermelon_Seed_Keepers.md
+History/Camelot_Legend.md
+History/Event_Zero_Point.md
+History/Great_Resettlement.md
+History/Meteor_Fall.md
+Symbols/Map_Symbols.md
+Templates/New_Religion_Template.md
+Templates/New_Faction_Template.md
+Templates/Observer_Post_Template.md
+Templates/War_Event_Template.md
+Data/index.json</div>
+      </section>
+
+      <div class="footer">Нулевая Точка: Хроники Завязи · автономная HTML-страница · v0.4-draft</div>
+    </main>
+  </div>
+
+  <script>
+    const $ = (sel, root = document) => root.querySelector(sel);
+    const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
+
+    function slugFileName(name, ext) {
+      const base = (name || 'new_religion')
+        .toLowerCase()
+        .replace(/[\s:;,.!?/\\]+/g, '_')
+        .replace(/_+/g, '_')
+        .replace(/^_|_$/g, '') || 'new_religion';
+      return base + ext;
+    }
+
+    function downloadText(filename, content, type = 'text/plain;charset=utf-8') {
+      const blob = new Blob([content], { type });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    }
+
+    function formData() {
+      const form = $('#religionForm');
+      return Object.fromEntries(new FormData(form).entries());
+    }
+
+    function setFormData(data) {
+      const form = $('#religionForm');
+      Object.entries(data || {}).forEach(([key, value]) => {
+        const field = form.elements[key];
+        if (field) field.value = value;
+      });
+    }
+
+    function toMarkdown(data) {
+      return `# ${data.name || 'Новая религия'}\n\n` +
+`**Автор / псевдоним:** ${data.author || ''}\n\n` +
+`## Основа религии\n\n${data.basis || ''}\n\n` +
+`## Краткое описание\n\n${data.description || ''}\n\n` +
+`## Главный символ\n\n${data.symbol || ''}\n\n` +
+`## Файлы\n\n- Значок на карте: ${data.mapIcon || ''}\n- Город: ${data.cityImage || ''}\n\n` +
+`## Действующие правители\n\n${data.rulers || ''}\n\n` +
+`## Главный запрет / табу\n\n${data.taboo || ''}\n\n` +
+`## Отношение к Событию Нулевой Точки\n\n${data.zeroPoint || ''}\n\n` +
+`## Отношение к другим державам\n\n${data.relations || ''}\n\n` +
+`## Цель\n\n${data.goal || ''}\n\n` +
+`## Цена\n\n${data.price || ''}\n\n` +
+`## Статус\n\n${data.status || 'DRAFT'}\n`;
+    }
+
+    $('#saveDraft').addEventListener('click', () => {
+      localStorage.setItem('nt_hz_new_religion_draft', JSON.stringify(formData(), null, 2));
+      $('#saveDraft').textContent = 'Сохранено';
+      setTimeout(() => $('#saveDraft').textContent = 'Сохранить', 900);
+    });
+
+    $('#loadDraft').addEventListener('click', () => {
+      const raw = localStorage.getItem('nt_hz_new_religion_draft');
+      if (!raw) return;
+      setFormData(JSON.parse(raw));
+    });
+
+    $('#exportJson').addEventListener('click', () => {
+      const data = formData();
+      downloadText(slugFileName(data.name, '.json'), JSON.stringify(data, null, 2), 'application/json;charset=utf-8');
+    });
+
+    $('#exportMd').addEventListener('click', () => {
+      const data = formData();
+      downloadText(slugFileName(data.name, '.md'), toMarkdown(data), 'text/markdown;charset=utf-8');
+    });
+
+    $('#goStart').addEventListener('click', () => $('#start').scrollIntoView({ behavior: 'smooth', block: 'start' }));
+    $('#goCanon').addEventListener('click', () => $('#canon').scrollIntoView({ behavior: 'smooth', block: 'start' }));
+    $('#goOrigin').addEventListener('click', () => $('#origin').scrollIntoView({ behavior: 'smooth', block: 'start' }));
+
+    $('#searchInput').addEventListener('input', (event) => {
+      const q = event.target.value.trim().toLowerCase();
+      $$('.search-block').forEach(block => {
+        const text = block.innerText.toLowerCase();
+        block.classList.toggle('hidden-by-search', q && !text.includes(q));
+      });
+    });
+
+    const sections = $$('main [id]');
+    const navLinks = $$('#nav a');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const id = entry.target.id;
+        navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + id));
+      });
+    }, { rootMargin: '-30% 0px -60% 0px', threshold: 0.01 });
+    sections.forEach(s => observer.observe(s));
+  </script>
+</body>
+</html>
