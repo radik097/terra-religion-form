@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Форма создания минимального ZIP-пакета новой религии для лора Терры Срезанной." />
+  <title>Терра Срезанная — Пакет новой религии</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="page-shell">
+    <header class="hero">
+      <div class="hero__badge">LORE PACKAGE BUILDER / GITHUB PAGES</div>
+      <h1>Создание новой религии</h1>
+      <p>
+        Заполни простую форму, приложи значок для карты и фото города. Сайт сохранит запись в браузере и даст скачать ZIP-пакет религии с файлами для передачи летописцу.
+      </p>
+      <div class="hero__actions">
+        <a class="button button--ghost" href="#religion-form">Заполнить форму</a>
+        <a class="button button--ghost" href="#registry">Список религий</a>
+      </div>
+    </header>
+
+    <main class="layout">
+      <section class="panel panel--form" aria-labelledby="form-title">
+        <div class="panel__header">
+          <div>
+            <p class="eyebrow">Минимальный пакет</p>
+            <h2 id="form-title">Форма религии</h2>
+          </div>
+          <button id="reset-form" class="button button--small" type="button">Очистить</button>
+        </div>
+
+        <form id="religion-form" autocomplete="off">
+          <div class="step-box">
+            <strong>Что требуется от пользователя:</strong>
+            <span>одно предложение на каждое текстовое поле, один значок для карты, одно изображение города.</span>
+          </div>
+
+          <div class="grid">
+            <label>
+              <span>Название религии</span>
+              <input name="name" maxlength="80" required placeholder="Например: Орден Пепельного Семени" />
+              <em>Нужно, чтобы файл и карточка имели понятное имя.</em>
+            </label>
+
+            <label>
+              <span>Имя автора или псевдоним</span>
+              <input name="author" maxlength="80" required placeholder="Например: Мизинец / Rodion / Архивист-17" />
+              <em>Нужно, чтобы было понятно, кто предложил религию.</em>
+            </label>
+
+            <label class="full">
+              <span>Основа религии</span>
+              <input name="basis" maxlength="220" required placeholder="Одним предложением: на чём держится вера, культ или порядок." />
+              <em>Напиши главный принцип: кровь, семя, закон, маска, машина, вода, память, огонь.</em>
+            </label>
+
+            <label class="full">
+              <span>Описание религии</span>
+              <textarea name="description" maxlength="640" rows="4" required placeholder="Одним-двумя предложениями: кто верит, зачем верит, какую роль религия играет в мире."></textarea>
+              <em>Нужно для хроники и первичной проверки канона.</em>
+            </label>
+
+            <label class="full">
+              <span>Действующие правители</span>
+              <input name="rulers" maxlength="220" required placeholder="Например: Матрона Бакла, Совет Масок, Верховный Сеятель." />
+              <em>Укажи лидеров, совет, орден или правящий дом.</em>
+            </label>
+
+            <label>
+              <span>Статус канона</span>
+              <select name="status" required>
+                <option value="DRAFT">DRAFT — черновик</option>
+                <option value="PROPOSED">PROPOSED — предложено</option>
+                <option value="PENDING_RESPONSE">PENDING_RESPONSE — ждёт ответа</option>
+                <option value="ACCEPTED_LOCAL">ACCEPTED_LOCAL — принято локально</option>
+                <option value="ACCEPTED_CANON">ACCEPTED_CANON — основной канон</option>
+              </select>
+              <em>Для новой религии обычно выбирай DRAFT или PROPOSED.</em>
+            </label>
+
+            <label>
+              <span>Короткий тег</span>
+              <input name="tag" maxlength="32" placeholder="Например: ASH-SEED" />
+              <em>Необязательно. Используется в имени папки и индексации.</em>
+            </label>
+          </div>
+
+          <div class="uploads">
+            <label class="upload-card">
+              <span>Фото значка на карте</span>
+              <input id="map-icon" name="mapIcon" type="file" accept="image/png,image/jpeg,image/webp,image/svg+xml" required />
+              <strong id="map-icon-name">Файл не выбран</strong>
+              <em>Лучше PNG/WebP/SVG, квадрат 512×512. Это будет `assets/map_icon.*`.</em>
+              <img id="map-icon-preview" alt="Превью значка" hidden />
+            </label>
+
+            <label class="upload-card">
+              <span>Фото города</span>
+              <input id="city-photo" name="cityPhoto" type="file" accept="image/png,image/jpeg,image/webp,image/svg+xml" required />
+              <strong id="city-photo-name">Файл не выбран</strong>
+              <em>Лучше 16:9 или широкий кадр. Это будет `assets/city_photo.*`.</em>
+              <img id="city-photo-preview" alt="Превью города" hidden />
+            </label>
+          </div>
+
+          <div class="form-footer">
+            <p id="form-status" role="status" aria-live="polite">После сохранения нажми “Скачать ZIP” в карточке религии.</p>
+            <button class="button button--primary" type="submit">Сохранить религию</button>
+          </div>
+        </form>
+      </section>
+
+      <aside class="panel panel--rules" aria-labelledby="steps-title">
+        <p class="eyebrow">Инструкция</p>
+        <h2 id="steps-title">Этапы</h2>
+        <ol class="steps">
+          <li><strong>Имя и автор.</strong><span>Кто создал религию и как она называется.</span></li>
+          <li><strong>Основа.</strong><span>Одна главная идея веры.</span></li>
+          <li><strong>Описание.</strong><span>Коротко, зачем религия существует.</span></li>
+          <li><strong>Правители.</strong><span>Кто реально управляет культом или державой.</span></li>
+          <li><strong>Два изображения.</strong><span>Значок карты и город.</span></li>
+          <li><strong>ZIP.</strong><span>Скачать пакет и отправить летописцу.</span></li>
+        </ol>
+        <div class="stat-card">
+          <span>Пользовательских записей</span>
+          <strong id="local-count">0</strong>
+        </div>
+      </aside>
+    </main>
+
+    <section id="registry" class="panel registry" aria-labelledby="registry-title">
+      <div class="panel__header panel__header--wrap">
+        <div>
+          <p class="eyebrow">Реестр</p>
+          <h2 id="registry-title">Текущие религии</h2>
+        </div>
+        <div class="toolbar">
+          <input id="search" type="search" placeholder="Поиск по названию, автору, основе" />
+          <select id="status-filter" aria-label="Фильтр по статусу">
+            <option value="ALL">Все статусы</option>
+            <option value="DRAFT">DRAFT</option>
+            <option value="PROPOSED">PROPOSED</option>
+            <option value="PENDING_RESPONSE">PENDING_RESPONSE</option>
+            <option value="ACCEPTED_LOCAL">ACCEPTED_LOCAL</option>
+            <option value="ACCEPTED_CANON">ACCEPTED_CANON</option>
+          </select>
+          <button id="export-json" class="button button--small" type="button">Экспорт реестра JSON</button>
+          <label class="button button--small file-button">
+            Импорт JSON
+            <input id="import-json" type="file" accept="application/json" />
+          </label>
+          <button id="clear-all" class="button button--danger button--small" type="button">Стереть локальные</button>
+        </div>
+      </div>
+      <div id="cards" class="cards" aria-live="polite"></div>
+    </section>
+  </div>
+
+  <template id="card-template">
+    <article class="religion-card">
+      <div class="religion-card__media">
+        <img class="card-icon" alt="Значок на карте" />
+        <img class="card-city" alt="Фото города" />
+      </div>
+      <div class="religion-card__top">
+        <div>
+          <p class="religion-card__status"></p>
+          <h3></h3>
+        </div>
+        <button class="icon-button" type="button" aria-label="Удалить запись">×</button>
+      </div>
+      <p class="religion-card__summary"></p>
+      <dl></dl>
+      <footer>
+        <span class="created-at"></span>
+        <button class="button button--primary button--small download-package" type="button">Скачать ZIP</button>
+      </footer>
+    </article>
+  </template>
+
+  <script src="app.js"></script>
+</body>
+</html>

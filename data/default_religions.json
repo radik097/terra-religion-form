@@ -1,0 +1,24 @@
+{
+  "project": "Terra Srezannaya Religion Package Builder",
+  "version": "2.0.0",
+  "description": "Seed data is embedded in app.js because images are stored as browser data URLs. This file documents the expected package schema.",
+  "package_schema": {
+    "folder": "<religion-slug>/",
+    "files": [
+      "index.json",
+      "RELIGION.md",
+      "assets/map_icon.<png|jpg|webp|svg>",
+      "assets/city_photo.<png|jpg|webp|svg>"
+    ],
+    "required_fields": [
+      "name",
+      "author",
+      "basis",
+      "description",
+      "rulers",
+      "status",
+      "mapIcon",
+      "cityPhoto"
+    ]
+  }
+}
